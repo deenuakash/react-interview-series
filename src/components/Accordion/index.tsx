@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TItem } from "../../utils/items";
+import { TItem } from "../../utils/accordionData";
 import { Link } from "react-router-dom";
 
 const Accordion = ({ item }: { item: TItem }) => {

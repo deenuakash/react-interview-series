@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Accordion from "./components/Accordion";
-import { items, TItem } from "./utils/items";
+import { accordionData, TAccordionData } from "./utils/accordionData";
 
 function App() {
   return (
@@ -8,7 +8,7 @@ function App() {
       <h1 className="font-bold text-5xl text-center">React Interview Series</h1>
       {/* using accordion component */}
       <div className="mt-6 flex justify-center items-center flex-col space-y-3">
-        {items.map((item: TItem) => {
+        {accordionData.map((item: TAccordionData) => {
           return <Accordion key={item.id} item={item} />;
         })}
       </div>

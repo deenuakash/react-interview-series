@@ -1,11 +1,11 @@
-export type TItem = {
+export type TAccordionData = {
   id: number;
   title: string;
   link: string;
   description: string;
 };
 
-const items: TItem[] = [
+const accordionData: TAccordionData[] = [
   {
     id: 1,
     title: "Accordion",
@@ -20,4 +20,4 @@ const items: TItem[] = [
   },
 ];
 
-export { items };
+export { accordionData };
