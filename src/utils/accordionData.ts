@@ -18,6 +18,12 @@ const accordionData: TAccordionData[] = [
     link: "/folderStructure",
     description: "This is an folder structure component",
   },
+  {
+    id: 3,
+    title: "Infinite Scroll",
+    link: "/infiniteScroll",
+    description: "This is an infinite scroll component",
+  },
 ];
 
 export { accordionData };
