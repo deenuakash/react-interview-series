@@ -9,15 +9,19 @@ const FolderStructure = ({
   data: TFolderData | undefined;
   handleNodeChange: THandleNodeChange;
 }) => {
+  //types
   type TNewItem = {
     isFolder: null | boolean;
     show: boolean;
   };
+
+  //states
   const [expanded, setExpanded] = useState<boolean>(false);
   const [newItem, setNewItem] = useState<TNewItem>({
     isFolder: null,
     show: false,
   });
+  const [showNewName, setShowNewName] = useState(false);
 
   const handleNewItemClick = (isFolder: boolean) => {
     setExpanded(true);
@@ -32,7 +36,13 @@ const FolderStructure = ({
     setNewItem({ ...newItem, show: false });
   };
 
-  const handleChangeItem = () => {};
+  const handleUpdateItem = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key !== "Enter") return;
+    setShowNewName(false);
+    const target = e.target as HTMLInputElement;
+    handleNodeChange("update", data!.id, target.value);
+  };
+
   return (
     <div>
       <div
@@ -47,7 +57,19 @@ const FolderStructure = ({
           ) : (
             <span>📄 </span>
           )}
-          {data?.name}
+          {showNewName ? (
+            <input
+              type="text"
+              className="px-2 py-1 rounded-lg border"
+              defaultValue={data?.name}
+              autoFocus
+              onClick={(e) => e.stopPropagation()}
+              onBlur={() => setShowNewName(false)}
+              onKeyDown={(e) => handleUpdateItem(e)}
+            />
+          ) : (
+            data?.name
+          )}
         </div>
         <div className="space-x-2" onClick={(e) => e.stopPropagation()}>
           {data?.isFolder && (
@@ -72,7 +94,10 @@ const FolderStructure = ({
           >
             🗑️
           </button>
-          <button className="text-red-500" onClick={() => handleChangeItem()}>
+          <button
+            className="text-red-500"
+            onClick={() => setShowNewName(!showNewName)}
+          >
             ✏️
           </button>
         </div>

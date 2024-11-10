@@ -5,7 +5,7 @@ import Page from "./page";
 import useHandleNode from "../components/FolderStructure/useHandleNode";
 
 export type THandleNodeChange = (
-  action: "add" | "delete",
+  action: "add" | "delete" | "update",
   id: string,
   name?: string,
   isFolder?: boolean
@@ -14,7 +14,7 @@ export type THandleNodeChange = (
 const FolderPage = () => {
   const [folderData, setFolderData] = useState<TFolderData>(data);
 
-  const { insertNode, deleteNode } = useHandleNode();
+  const { insertNode, deleteNode, editNode } = useHandleNode();
 
   const handleNodeChange: THandleNodeChange = (action, id, name, isFolder) => {
     let newData;
@@ -28,11 +28,15 @@ const FolderPage = () => {
         newData = deleteNode(folderData, id);
         break;
       }
+      case "update": {
+        if (!name) break;
+        newData = editNode(folderData, id, name);
+        break;
+      }
       default: {
         newData = { ...folderData };
       }
     }
-    console.log(newData);
     if (newData) setFolderData(newData);
   };
   return (

@@ -23,7 +23,6 @@ const useHandleNode = () => {
         }
         return item;
       });
-      console.log(tree, children);
       return { ...tree, children };
     }
   };
@@ -44,7 +43,22 @@ const useHandleNode = () => {
     return { ...tree, children };
   };
 
-  return { insertNode, deleteNode };
+  const editNode = (
+    tree: TFolderData,
+    itemId: string,
+    name: string
+  ): TFolderData => {
+    if (tree.id === itemId) {
+      tree.name = name;
+      return tree;
+    }
+    const children = tree.children?.map((item) => {
+      return editNode(item, itemId, name);
+    });
+    return { ...tree, children };
+  };
+
+  return { insertNode, deleteNode, editNode };
 };
 
 export default useHandleNode;
